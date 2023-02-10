@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_REQUESTS 200
+
+void simulate_FCFS(int requests[], int num_requests, int head) {
+  int head_movement = 0;
+  int cur_request = 0;
+
+  printf("\nSimulating FCFS Disk Scheduling...\n");
+  printf("Initial head position: %d\n", head);
+  printf("\nRequests: ");
+
+  for (int i = 0; i < num_requests; i++) {
+    printf("%d ", requests[i]);
+  }
+
+  printf("\n\nServicing Requests:\n");
+  printf("#\tRequest\t\tHead Movement\n");
+  printf("----------------------------------------------------\n");
+
+  for (int i = 0; i < num_requests; i++) {
+    cur_request = requests[i];
+    printf("%d\t%d\t\t\t%d\n", i + 1, cur_request, abs(head - cur_request));
+    head_movement += abs(head - cur_request);
+    head = cur_request;
+  }
+
+  printf("\nTotal head movement: %d\n", head_movement);
+  printf("Average head movement: %f\n\n", (float) head_movement / num_requests);
+}
+
+int main() {
+  int requests[MAX_REQUESTS];
+  int num_requests;
+  int head;
+
+  printf("Enter the number of disk requests: ");
+  scanf("%d", &num_requests);
+
+  printf("Enter the requests, separated by a space: ");
+  for (int i = 0; i < num_requests; i++) {
+    scanf("%d", &requests[i]);
+  }
+
+  printf("Enter the initial position of the head: ");
+  scanf("%d", &head);
+
+  simulate_FCFS(requests, num_requests, head);
+}
